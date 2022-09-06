@@ -32,7 +32,7 @@
             class="input"
             type="tel"
             pattern="^\+?(?:00)?\d{12}(?:#\d{2,5})?$"
-            title="Только цыфры! Минимум 12 символов."
+            title="Только цифры! Минимум 12 символов."
             required
         >
         <label class="label-for">Номер телефона</label>
