@@ -1,5 +1,5 @@
 <template>
-  <section style="opacity: 0" class="contact-us">
+  <section class="contact-us">
     <h1 class="title">Свяжитесь с нами</h1>
     <form
         @submit.prevent="finalStep($refs.submit)"
@@ -62,7 +62,7 @@
 </template>
 
 <script setup>
-import {onMounted} from "vue";
+import { onMounted } from "vue";
 import gsap from "gsap"
 
 //Установим заголовок страницы
@@ -71,12 +71,7 @@ document.title = 'Симпатичная форма';
 //Анимируем форму при загрузке страницы
 onMounted(() => {
 
-  //Для этого сначала сделаем ее невидимой
-  gsap.to("section", {
-    opacity: 0
-  })
-
-  //Потом постепенно будем придавать ее видимости
+  //Постепенно будем придавать форме видимость
   gsap.to("section", {
     opacity: 1,
     duration: 4
@@ -95,12 +90,14 @@ onMounted(() => {
 
 })
 
+//Плавно скругляем кнопку при наведении
 const btnHover = ref => {
   gsap.to(ref, {
     borderRadius: 15,
   })
 }
 
+//Возвращаем кнопку в исходное положение
 const btnUnHover = ref => {
   gsap.to(ref, {
     borderRadius: 0,
@@ -108,7 +105,7 @@ const btnUnHover = ref => {
 }
 
 /* Функция для установки или удаления класса
-not-empty, в зависимости от пустоты поля*/
+not-empty, в зависимости от пустоты поля */
 const isEmpty = ref => {
   if (ref.value.length === 0) {
     ref.classList.remove("not-empty")
@@ -123,7 +120,6 @@ const finalStep = ref => {
     opacity: 0
   })
 }
-
 </script>
 
 <style>
@@ -145,21 +141,22 @@ const finalStep = ref => {
   clear: both;
 }
 
-.row .column {
+.column {
   padding: 0 20px;
   float: left;
   box-sizing: border-box;
 }
 
-.row .column.x-50 {
+.x-50 {
   width: 50%;
 }
 
-.row .column.x-100 {
+.x-100 {
   width: 100%;
 }
 
 .contact-us {
+  opacity: 0;
   max-width: 650px;
   margin: 0 auto;
 }
@@ -195,7 +192,7 @@ const finalStep = ref => {
   outline: none;
 }
 
-.input:focus + .label-for, .contact-form .input.not-empty + .label-for {
+.input:focus + .label-for, .not-empty + .label-for {
   transform: translateY(-24px);
 }
 
@@ -223,4 +220,11 @@ const finalStep = ref => {
   border: none;
   cursor: pointer;
 }
+
+@media (max-width: 500px) {
+  .title {
+    font-size: 30px;
+  }
+}
+
 </style>
