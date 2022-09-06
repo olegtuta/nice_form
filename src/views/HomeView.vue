@@ -32,6 +32,7 @@
             class="input"
             type="tel"
             pattern="^\+?(?:00)?\d{12}(?:#\d{2,5})?$"
+            maxlength="12"
             title="Только цифры! 12 символов."
             required
         >
