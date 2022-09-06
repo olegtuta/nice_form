@@ -32,7 +32,7 @@
             class="input"
             type="tel"
             pattern="^\+?(?:00)?\d{12}(?:#\d{2,5})?$"
-            title="Только цифры! Минимум 12 символов."
+            title="Только цифры! 12 символов."
             required
         >
         <label class="label-for">Номер телефона</label>
@@ -58,16 +58,21 @@
         >
       </div>
     </form>
+    <div v-if="nextStep" class="next-step-container">
+      <h1 class="next-step-title">Спасибо за обратную связь</h1>
+      <img width="100" src="@/assets/img/good.png" alt="успешно">
+    </div>
   </section>
 </template>
 
 <script setup>
-import { onMounted } from "vue";
+import { onMounted, ref } from "vue";
 import gsap from "gsap"
 
 //Установим заголовок страницы
 document.title = 'Симпатичная форма';
 
+const nextStep = ref(false);
 //Анимируем форму при загрузке страницы
 onMounted(() => {
 
@@ -118,6 +123,16 @@ const isEmpty = ref => {
 const finalStep = ref => {
   gsap.to("form, .title", {
     opacity: 0
+  }).then(() => {
+    gsap.to("form, .title", {
+      opacity: "0"
+    }).then(() => {
+      gsap.to("form, .title", {
+        display: "none"
+      }).then(() => {
+        nextStep.value = true
+      })
+    })
   })
 }
 </script>
@@ -162,6 +177,16 @@ const finalStep = ref => {
 }
 
 .title {
+  text-align: center;
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  font-size: 36px;
+  line-height: 48px;
+  padding-bottom: 48px;
+  color: chocolate;
+}
+
+.next-step-title {
   text-align: center;
   text-transform: uppercase;
   letter-spacing: 3px;
@@ -219,6 +244,10 @@ const finalStep = ref => {
   padding: 8px 16px;
   border: none;
   cursor: pointer;
+}
+
+.next-step-container {
+  text-align: center;
 }
 
 @media (max-width: 500px) {
